@@ -1,6 +1,6 @@
 # 디렉토리
 
-#### lib
+### lib
 
 - 센서 모듈화 라이브러리 저장 디렉토리
 - 개발 언어 : C++
@@ -16,7 +16,7 @@
 
 
 
-#### bathroom
+### bathroom
 
 - 아두이노 / 화장실 센싱 파일 디렉토리
 - 수집된 센서 데이터를 `central_server`(MQTT브로커 서버)로 전송
@@ -31,7 +31,7 @@
 
 
 
-#### kitchen
+### kitchen
 
 - 아두이노 / 주방 센싱 파일 디렉토리
 - 수집된 센서 데이터를 `central_server`(MQTT브로커 서버)로 전송
@@ -46,7 +46,7 @@
 
 
 
-#### livingroom
+### livingroom
 
 - 아두이노 / 거실 센싱 파일 디렉토리
 - 수집된 센서 데이터를 `central_server`(MQTT브로커 서버)로 전송
@@ -61,7 +61,7 @@
 
 
 
-#### room
+### room
 
 - 아두이노 / 방 센싱 파일 디렉토리
 - 수집된 센서 데이터를 `central_server`(MQTT브로커 서버)로 전송
@@ -76,7 +76,7 @@
 
 
 
-#### entrance
+### entrance
 
 - 라즈베리파이 / 현관 센싱 파일 디렉토리
 - 보안카메라 및 센서 데이터를 `central_server(MQTT브로커 서버)`로 전송
@@ -91,7 +91,7 @@
 
 
 
-#### central_server
+### central_server
 
 - 라즈베리파이 /  중앙 서버 디렉토리
 - MQTT브로커 역할 및 DB등록 역할
@@ -107,7 +107,7 @@
 
 
 
-#### control_server
+### control_server
 
 - 라즈베리파이 동작 제어 서버 디렉토리
 
@@ -129,21 +129,21 @@
 
   
 
-#### web_server
+### web_server
 
 - 웹서버 디렉토리
 - flask로 개발 예정, 자세한건 미정
 
 
 
-#### application
+### application
 
 - 어플리케이션 디렉토리
 - 자세한건 미정
 
 
 
-#### _documents
+### _documents
 
 - 프로젝트 산출물 디렉토리
 - 파일명은 자유롭게 추후 분리된 파일은 추후에 합칠 예정
