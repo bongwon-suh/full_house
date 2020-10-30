@@ -50,7 +50,7 @@ void publish() {
     dtostrf(h, 5, 2, message);
     client.publish("home/livingroom/humi", message);
     dtostrf(t, 5, 2, message);
-    client.publish("iot/livingroom/temp", message);
+    client.publish("home/livingroom/temp", message);
 
     Serial.print(h);
     Serial.print(",");
