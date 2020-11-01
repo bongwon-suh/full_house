@@ -127,3 +127,42 @@ WBS 넣을꺼 추가 -
 ------------------------
 
 10.28
+
+-------------------------------
+
+11.01
+
+노기현 
+
+- 주석처리 소스 삭제
+- pub topic home/livingroom/flame
+- 47번째 줄 방이름_센서명
+- 완료 시 풀 리퀘
+- 동작제어 피에조부저 가스밸브잠금
+
+
+
+권혜주
+
+- pub topic home/entrance/illu
+- 브랜치 생성 후 소스 올리기 폴더명/.ino
+- 조도센서 어디에 더 활용할지 얘기하기
+
+
+
+정혜영
+
+- pub topic home/livingroom/humi
+- pub topic home/livingroom/temp
+- 온습도 동작제어
+
+
+
+서봉원
+
+- 웹서버 플라스크 DB 연동
+- 온도 데이터 dashboard
+
+
+
+키트 오면 조립해서 연동해보기
