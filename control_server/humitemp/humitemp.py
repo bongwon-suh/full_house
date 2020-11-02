@@ -10,7 +10,7 @@ airdry = LED(22)
 
 # DB연결
 mongodb = MongoClient("mongodb://192.168.0.87:27017/")
-db = mongodb.iot_service
+db = mongodb.full_house
 
 # 브로커 접속 시도 결과 처리 콜백 함수
 def on_connect(client, userdata, flags, rc):
