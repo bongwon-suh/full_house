@@ -35,7 +35,7 @@ void reconnect() {
 
         if(client.connect("IlluEspClient")) {
             Serial.println("connected");
-            client.subscribe("home/home1/illu");
+            client.subscribe("home/livingroom/illu");
         }
         else {
             Serial.print("failed, rc=");
@@ -51,7 +51,7 @@ void publish() {
     char message[10];
 
     dtostrf(i, 5, 2, message);
-    client.publish("iot/home1/illu", message);
+    client.publish("iot/livingroom/illu", message);
 
     Serial.println(i);
 }

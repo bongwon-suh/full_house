@@ -6,7 +6,7 @@ from gpiozero import LED
 import RPi.GPIO as GPIO
 
 mongodb = MongoClient("mongodb://192.168.0.85:27017/")
-db = mongodb.iot_service
+db = mongodb.full_house
 
 led = LED(16)
 SERVO_PIN = 18
@@ -20,7 +20,7 @@ blind.start(0)
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+ str(rc))
     if rc == 0:
-        client.subscribe("iot/home1/illu") # 연결 성공시 토픽 구독 신청
+        client.subscribe("iot/livingroom/illu") # 연결 성공시 토픽 구독 신청
     else:
         print('연결 실패 : ', rc)
 
