@@ -24,27 +24,14 @@ PubSubClient client(espClient);
 void mqtt_init() {
     client.setServer(mqtt_server, 1883);
 }
-/*
-void callback(char* topic, byte* payload, unsigned int length) {
-payload[length] = NULL;
-char *message = payload;
-if(strcmp("1", message)==0) {
-digitalWrite(13, HIGH);
-} else {
-digitalWrite(13, LOW);
-}
-Serial.print(topic);
-Serial.print(" : ");
-Serial.println(message);
-}
-*/
+
 // MQTT 서버에 접속될 때까지 재접속 시도
 void reconnect() {
 
     while (!client.connected()) {
         Serial.print("Attempting MQTT connection...");
         
-        if (client.connect("ESP8266Client")) {
+        if (client.connect("LivingRoomFlame")) {
             Serial.println("connected");
             // subscriber로 등록
             client.subscribe("home/home1/#");  // 구독 신청
