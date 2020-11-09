@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Control</h1>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+
+
+        <input type="checkbox" class='toggle' checked data-toggle="toggle">
+        <div class='status'>
+          {% if label.state == 1 %}
+          Toggled
+          {% else %}
+          Untoggled
+          {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          </div>
+          <small class="text-muted">9 mins</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+</div>
+<div class="row">
+  <div class="col-lg-4" id="data-container"></div>
+  <div class="col-lg-4" id="data-container2"></div>
+  <div class="col-lg-4" id="data-container3"></div>
+</div>
+
+
+
+
+<h2>Section title</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1,001</td>
+        <td>Lorem</td>
+        <td>ipsum</td>
+        <td>dolor</td>
+        <td>sit</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <script>
+    $(document).ready(function() {
+     $('.toggle').click(function() {
+        var current_status = $('.status').text();
+        if (current_status === 'Untoggled'){
+          window.location.href="/led_on";
+          $('.status').html('Toggled');
+
+        }
+        else{
+          window.location.href="/led_off";
+          $('.status').html('Untoggled');
+        }
+  
+      });
+     });
+   </script>
+{% endblock %}
