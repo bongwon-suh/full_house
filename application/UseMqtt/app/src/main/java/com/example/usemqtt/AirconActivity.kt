@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_aircon.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
+import java.util.*
 import kotlin.concurrent.timer
 
 
 class AirconActivity : AppCompatActivity() {
-    private var isRunning = false
+    private var timerTask: Timer? = null
     lateinit var mqttClient: Mqtt
-    var manualtemp = 27
+    var manualtemp = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aircon)
@@ -26,13 +27,12 @@ class AirconActivity : AppCompatActivity() {
         switch2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The toggle is enabled
-                isRunning = !isRunning
-                if(isRunning) {
-                    manualmode()
-                    manuillu()
-                }
+                mqttClient.publish("home/livingroom/manualstate","1")
+                manuillu()
             } else {
                 // The toggle is disabled
+                mqttClient.publish("home/livingroom/manualstate","0")
+                timerTask?.cancel()
             }
         }
         hitup.setOnClickListener(){
@@ -52,14 +52,9 @@ class AirconActivity : AppCompatActivity() {
         roomtemp.text = msg
     }
 
-    fun manualmode() {
-        timer(period = 5000){
-            mqttClient.publish("home/livingroom/manualstate","1")
-        }
-    }
     fun manuillu() {
-        timer(period = 5000){
-            mqttClient.publish("home/livingroom/manual/light", manualtemp.toString() )
+        timerTask=timer(period = 2500){
+            mqttClient.publish("home/livingroom/manual/illu", manualtemp.toString() )
         }
     }
 }

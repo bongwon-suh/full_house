@@ -6,7 +6,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 
-led = LED(17)
+led = PWMLED(17)
 state = 0
 manuillu = 0
 
@@ -24,28 +24,12 @@ def on_message(client, userdata, msg):
     print(f" {msg.topic} {value}")
     illu = 0
     global state
-    global manuillu
     if (msg.topic == "home/livingroom/manualstate"):
         state = value
-
     elif (msg.topic == "home/livingroom/manual/illu"):
         manuillu = value
-
-    elif (msg.topic == "home/livingroom/illu"):
-        print(f"{type(state)} and {state}")
         if int(state) == 1 :
-            illu = value
-            if illu < manuillu-1: # 어두울 때
-                print(f"{type(illu)} and {state}")
-                led.on()
-            elif illu >= manuillu+1: # 밝을 때
-                print("why turned off")
-                led.on()
-            else:
-                led.off()
-    
-
-
+            led.value = (manuillu/10) 
     
 # 1. MQTT 클라이언트 객체 인스턴스화
 client = mqtt.Client()
