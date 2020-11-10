@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block content%}
+<style>
+  i{
+    font-size: 3em;
+  }
+</style>
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Control</h1>
 </div>
@@ -9,42 +15,20 @@
 <div class="row">
   <div class="col-md-3">
     <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-      <input id="toggle-one" checked type="checkbox">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
-        </div>
+      <div class="card-header">
+        <h5>거실등</h5>
       </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card mb-4 shadow-sm">
       <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="row">
+          <div class="col" id="result">
+            {% if light.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
           </div>
-          <small class="text-muted">9 mins</small>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="led_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="led_off()">Off</button></div>
         </div>
       </div>
     </div>
@@ -52,42 +36,20 @@
 
   <div class="col-md-3">
     <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
-        </div>
+      <div class="card-header">
+        <h5>에어컨</h5>
       </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card mb-4 shadow-sm">
       <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="row">
+          <div class="col" id="result2">
+            {% if aircon.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
           </div>
-          <small class="text-muted">9 mins</small>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="aircon_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="aircon_off()">Off</button></div>
         </div>
       </div>
     </div>
@@ -95,32 +57,133 @@
 
   <div class="col-md-3">
     <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>히터</h5>
+      </div>
       <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="row">
+          <div class="col" id="result3">
+            {% if heater.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
           </div>
-          <small class="text-muted">9 mins</small>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="heater_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="heater_off()">Off</button></div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-3">
     <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>제습기</h5>
+      </div>
       <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="row">
+          <div class="col" id="result4">
+            {% if airdry.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
           </div>
-          <small class="text-muted">9 mins</small>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="airdry_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="airdry_off()">Off</button></div>
         </div>
       </div>
     </div>
   </div>
+
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>블라인드</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col" id="result5">
+            {% if blind.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
+          </div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="blind_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="blind_off()">Off</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>환풍기</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col" id="result6">
+            {% if fan.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
+          </div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="fan_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="fan_off()">Off</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>가스밸브</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col" id="result7">
+            {% if gas.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
+          </div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="gas_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="gas_off()">Off</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h5>자동제어</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col" id="result8">
+            {% if auto.state == 1 %}
+            <i class="fas fa-power-off" style="color:red"></i>
+            {% else %}
+            <i class="fas fa-power-off"></i>
+            {% endif %}
+          </div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="auto_on()">On</button></div>
+          <div class="col"><button type="button" class="btn btn-primary btn-lg" onclick="auto_off()">Off</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -135,33 +198,282 @@
 
 
 
-<h2>Section title</h2>
-<div class="table-responsive">
-  <table class="table table-striped table-sm">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1,001</td>
-        <td>Lorem</td>
-        <td>ipsum</td>
-        <td>dolor</td>
-        <td>sit</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-lg-6">
+    <h2>화재 감지</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Header</th>
+            <th>Header</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in flame %}
+          <tr>
+            <td>{{i.topic}}</td>
+            <td>{{i.value}}</td>
+            <td>{{i.reg_date}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="col-lg-6">
+    <h2>지진 감지</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Header</th>
+            <th>Header</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in flame %}
+          <tr>
+            <td>{{i.topic}}</td>
+            <td>{{i.value}}</td>
+            <td>{{i.reg_date}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
 
 <script>
-  $(function() {
-    $('#toggle-one').bootstrapToggle();
-  })
+  function led_on() {
+    fetch("/led_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function led_off() {
+    fetch("/led_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+  function aircon_on() {
+    fetch("/aircon_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result2");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function aircon_off() {
+    fetch("/aircon_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result2");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+  function heater_on() {
+    fetch("/heater_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result3");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function heater_off() {
+    fetch("/heater_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result3");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+  function airdry_on() {
+    fetch("/airdry_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result4");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function airdry_off() {
+    fetch("/airdry_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result4");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+
+
+  function blind_on() {
+    fetch("/blind_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result5");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function blind_off() {
+    fetch("/blind_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result5");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+
+
+  function fan_on() {
+    fetch("/fan_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result6");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function fan_off() {
+    fetch("/fan_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result6");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+
+
+  function gas_on() {
+    fetch("/gas_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result7");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function gas_off() {
+    fetch("/gas_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result7");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+
+  function auto_on() {
+    fetch("/auto_on")
+      .then(response => { console.log(response); return response.text() })
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result8");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off' style='color:red'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+  function auto_off() {
+    fetch("/auto_off")
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        let result = document.querySelector("#result8");
+        if (data == "ok") {
+          result.innerHTML = "<i class='fas fa-power-off'></i>";
+        } else {
+          result.innerHTML = "<h1>error</h1>";
+        }
+      });
+  }
+
+
 </script>
+
 {% endblock %}
