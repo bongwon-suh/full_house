@@ -10,17 +10,7 @@
   <div class="col-md-3">
     <div class="card mb-4 shadow-sm">
       <div class="card-body">
-
-
-        <input type="checkbox" class='toggle' checked data-toggle="toggle">
-        <div class='status'>
-          {% if label.state == 1 %}
-          Toggled
-          {% else %}
-          Untoggled
-          {% endif %}
-        </div>
-
+      <input id="toggle-one" checked type="checkbox">
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
@@ -169,22 +159,9 @@
   </table>
 </div>
 
-
-  <script>
-    $(document).ready(function() {
-     $('.toggle').click(function() {
-        var current_status = $('.status').text();
-        if (current_status === 'Untoggled'){
-          window.location.href="/led_on";
-          $('.status').html('Toggled');
-
-        }
-        else{
-          window.location.href="/led_off";
-          $('.status').html('Untoggled');
-        }
-  
-      });
-     });
-   </script>
+<script>
+  $(function() {
+    $('#toggle-one').bootstrapToggle();
+  })
+</script>
 {% endblock %}
