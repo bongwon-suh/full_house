@@ -6,6 +6,7 @@
 #include <MiniCom.h>
 #include <AnalogSensor.h>
 #include <Flame.h>
+#include <VibrateDetector.h>
 
 SoftwareSerial softSerial(2, 3);           // RX, TX
 
@@ -17,6 +18,7 @@ MiniCom com;
 
 AnalogSensor gasdetector(A0,0,255);
 Flame flame(9);
+VibrateDetector vibrate(5,A1); //din, Aout
 
 // MQTT용 WiFi 클라이언트 객체 초기화
 WifiUtil wifi(2, 3);
@@ -48,7 +50,8 @@ void reconnect() {
 void publish() {
     float gas = gasdetector.read();
     float flame_ = flame.read();
-    
+    float vibe = vibrate.read();
+
     char message[10];
     
     // 토픽 발행
@@ -61,10 +64,16 @@ void publish() {
       client.publish("home/livingroom/flame",message);
       }
 
+    dtostrf(vibe, 5, 2, message);
+    client.publish("home/livingroom/vibrator", message);
+
+
     Serial.print(gas);
     Serial.print(",");
     Serial.print(flame_);
-    Serial.println(",");
+    Serial.print(",");
+    Serial.println(vibe);
+
 }
 
 void setup() {
