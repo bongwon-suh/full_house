@@ -73,6 +73,14 @@ def on_message(client, userdata, msg):
         #     else:
         #         valve.off()
         
+        # 지진감지센서 컨트롤
+        elif msg.topic == "home/livingroom/vibrator":
+            if value > 200:
+                print("Warnning!!")
+                w_signal.beep(0.5,0.5)
+            else:
+                w_signal.off()
+        
         # 조도센서 컨트롤
         elif msg.topic == "home/livingroom/illu":
             if value < 15: # 어두울 때
