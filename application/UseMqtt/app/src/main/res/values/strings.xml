@@ -10,4 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="tempcontrol">온도조절</string>
+    <string name="wantedlight">Wantedlight</string>
+    <string name="down">down</string>
+    <string name="up">up</string>
+    <string name="notyetrecevied">NotYetRecevied</string>
 </resources>

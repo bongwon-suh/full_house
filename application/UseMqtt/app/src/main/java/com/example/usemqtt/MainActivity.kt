@@ -17,14 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mqtt)
-        mqttClient = Mqtt(this, SERVER_URI)
-        try {
-            // mqttClient.setCallback { topic, message ->}
-            mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>(SUB_TOPIC))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
         airconmod.setOnClickListener{
             val mqttIntent = Intent(this, AirconActivity::class.java)
@@ -36,10 +28,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(mqttIntent)
         }
 
-    }
-    fun onReceived(topic: String, message: MqttMessage) {
-        // 토픽 수신 처리
-        val msg = String(message.payload)
     }
 
 }

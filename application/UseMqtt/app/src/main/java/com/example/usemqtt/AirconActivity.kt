@@ -7,11 +7,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
 import kotlin.concurrent.timer
 
-
 class AirconActivity : AppCompatActivity() {
     private var timerTask: Timer? = null
     lateinit var mqttClient: Mqtt
-    var manualtemp = 10
+    var manualtemp = 27
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aircon)
@@ -19,16 +18,16 @@ class AirconActivity : AppCompatActivity() {
         try {
             // mqttClient.setCallback { topic, message ->}
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>(SUB_TOPIC))
+            mqttClient.connect(arrayOf<String>("home/livingroom/temp"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        switch2.setOnCheckedChangeListener { _, isChecked ->
+        tempswitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The toggle is enabled
                 mqttClient.publish("home/livingroom/manualstate","1")
-                manuillu()
+                manutemp()
             } else {
                 // The toggle is disabled
                 mqttClient.publish("home/livingroom/manualstate","0")
@@ -52,9 +51,9 @@ class AirconActivity : AppCompatActivity() {
         roomtemp.text = msg
     }
 
-    fun manuillu() {
+    fun manutemp() {
         timerTask=timer(period = 2500){
-            mqttClient.publish("home/livingroom/manual/illu", manualtemp.toString() )
+            mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString() )
         }
     }
 }

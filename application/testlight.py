@@ -9,6 +9,7 @@ import RPi.GPIO as GPIO
 led = PWMLED(17)
 state = 0
 manuillu = 0
+manutemp = 0
 
 
 def on_connect(client, userdata, flags, rc):
@@ -24,12 +25,38 @@ def on_message(client, userdata, msg):
     print(f" {msg.topic} {value}")
     illu = 0
     global state
+    global manualtemp
     if (msg.topic == "home/livingroom/manualstate"):
         state = value
     elif (msg.topic == "home/livingroom/manual/illu"):
         manuillu = value
         if int(state) == 1 :
-            led.value = (manuillu/10) 
+            led.value = (manuillu/10)
+
+    elif (msg.topic == "home/livingroom/manual/temp"):
+        manutemp = value
+
+
+    elif msg.topic == "home/livingroom/temp":
+        t = value
+        if int(state) == 1:    
+            if t > manualtemp+1:
+                hitter.off()
+                aircon.on()
+            elif t < manualtemp-1:
+                hitter.on()
+                aircon.off()
+            else:
+                hitter.off()
+                aircon.off()
+    
+    elif msg.topic == "home/livingroom/humi":
+        h = value
+        if int(state) == 1:
+            if h > manualhumi+1:
+                fan.on()
+            else :
+                fan.off()
     
 # 1. MQTT 클라이언트 객체 인스턴스화
 client = mqtt.Client()
