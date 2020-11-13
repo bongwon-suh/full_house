@@ -1,8 +1,10 @@
 package com.example.usemqtt
 
 import android.os.Bundle
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_aircon.*
+import kotlinx.android.synthetic.main.activity_light.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
 import kotlin.concurrent.timer
@@ -11,6 +13,7 @@ class AirconActivity : AppCompatActivity() {
     private var timerTask: Timer? = null
     lateinit var mqttClient: Mqtt
     var manualtemp = 27
+    var manualhumi = 20
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aircon)
@@ -38,13 +41,22 @@ class AirconActivity : AppCompatActivity() {
             }
         }
         humiup.setOnClickListener(){
-            manualtemp += 1
-            curhumi.text = manualtemp.toString()
+            manualhumi += 1
+            curhumi.text = manualhumi.toString()
         }
         humidown.setOnClickListener(){
-            manualtemp -= 1
-            curhumi.text = manualtemp.toString()
+            manualhumi -= 1
+            curhumi.text = manualhumi.toString()
         }
+        humibar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                // Display the current progress of SeekBar
+                manualtemp = i
+                curhumi.text = manualtemp.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         tempswitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -59,12 +71,22 @@ class AirconActivity : AppCompatActivity() {
         }
         tempup.setOnClickListener(){
             manualtemp += 1
-            curhumi.text = manualtemp.toString()
+            curtemp.text = manualtemp.toString()
         }
         tempdown.setOnClickListener(){
             manualtemp -= 1
-            curhumi.text = manualtemp.toString()
+            curtemp.text = manualtemp.toString()
         }
+
+        tempbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                // Display the current progress of SeekBar
+                manualtemp = i
+                curtemp.text = manualtemp.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
     }
 

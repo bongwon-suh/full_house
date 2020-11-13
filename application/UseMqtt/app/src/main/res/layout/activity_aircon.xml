@@ -21,6 +21,13 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="실내 온도" />
+
+        <TextView
             android:id="@+id/roomtemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,6 +102,13 @@
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="실내 습도" />
 
         <TextView
             android:id="@+id/roomhumi"

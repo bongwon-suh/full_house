@@ -9,10 +9,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
 import kotlin.concurrent.timer
 
+
+
 class LightandWindowActivity : AppCompatActivity() {
     private var timerTask: Timer? = null
     lateinit var mqttClient: Mqtt
-    var manualillu = 5
+    var manualillu = 0
+    var manualwindo = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_light)
@@ -29,7 +32,7 @@ class LightandWindowActivity : AppCompatActivity() {
             if (isChecked) {
                 // The toggle is enabled
                 mqttClient.publish("home/livingroom/manualstate","1")
-                manuillu()
+                manuactive()
             } else {
                 // The toggle is disabled
                 mqttClient.publish("home/livingroom/manualstate","0")
@@ -64,16 +67,46 @@ class LightandWindowActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
+
+        windoup.setOnClickListener(){
+            manualwindo += 1
+            if (manualwindo>30){
+                toastUp()
+                manualwindo = 30
+            }
+            curwindo.text = manualwindo.toString()
+        }
+        windodown.setOnClickListener(){
+            manualwindo -= 1
+            if (manualwindo<0){
+                toastUp()
+                manualwindo = 0
+            }
+            curwindo.text = manualwindo.toString()
+        }
+        windobar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                // Display the current progress of SeekBar
+                manualwindo = i
+                curwindo.text = manualwindo.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
     fun onReceived(topic: String, message: MqttMessage) {
         // 토픽 수신 처리
         val msg = String(message.payload)
         roomillu.text = msg
     }
-    fun manuillu() {
+    fun manuactive() {
         timerTask= timer(period = 2500){
             if (manualillu>-1&&manualillu<31) {
                 mqttClient.publish("home/livingroom/manual/illu", manualillu.toString())
+                mqttClient.publish("home/livingroom/manual/windo", manualwindo.toString())
             }
         }
     }
