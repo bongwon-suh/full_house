@@ -1,12 +1,15 @@
 package com.example.usemqtt
 
 import android.os.Bundle
+import android.os.Handler
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_aircon.*
 import kotlinx.android.synthetic.main.activity_light.*
+import kotlinx.coroutines.delay
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
+import kotlin.concurrent.schedule
 import kotlin.concurrent.timer
 
 class AirconActivity : AppCompatActivity() {
@@ -28,12 +31,11 @@ class AirconActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-        humiswitch.setOnCheckedChangeListener { _, isChecked ->
+        airconswitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The toggle is enabled
                 mqttClient.publish("home/livingroom/manualstate","1")
-                manutemp()
+                manuaircon()
             } else {
                 // The toggle is disabled
                 mqttClient.publish("home/livingroom/manualstate","0")
@@ -51,24 +53,12 @@ class AirconActivity : AppCompatActivity() {
         humibar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                manualtemp = i
-                curhumi.text = manualtemp.toString()
+                manualhumi = i+30
+                curhumi.text = manualhumi.toString()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-
-        tempswitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // The toggle is enabled
-                mqttClient.publish("home/livingroom/manualstate","1")
-                manutemp()
-            } else {
-                // The toggle is disabled
-                mqttClient.publish("home/livingroom/manualstate","0")
-                timerTask?.cancel()
-            }
-        }
         tempup.setOnClickListener(){
             manualtemp += 1
             curtemp.text = manualtemp.toString()
@@ -81,7 +71,7 @@ class AirconActivity : AppCompatActivity() {
         tempbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                manualtemp = i
+                manualtemp = i+16
                 curtemp.text = manualtemp.toString()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -101,9 +91,13 @@ class AirconActivity : AppCompatActivity() {
         }
     }
 
-    fun manutemp() {
+    fun manuaircon() {
         timerTask=timer(period = 2500){
-            mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString() )
+            mqttClient.publish("home/livingroom/manual/humi", manualhumi.toString() )
+            Timer().schedule(1000){
+                    mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString() )
+            }
+
         }
     }
 }

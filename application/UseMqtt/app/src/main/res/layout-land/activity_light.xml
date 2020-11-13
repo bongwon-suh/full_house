@@ -26,15 +26,24 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="105dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginEnd="20dp"
                 android:foregroundGravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="창문"
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/windoup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
                     android:text="@string/up"
                     tools:ignore="UnknownIdInLayout" />
 
@@ -93,7 +102,7 @@
                         android:text="off" />
 
                     <Switch
-                        android:id="@+id/illuswitch"
+                        android:id="@+id/activeswitch2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -114,6 +123,14 @@
                 android:layout_marginEnd="20dp"
                 android:foregroundGravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="조명"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/roomillu"

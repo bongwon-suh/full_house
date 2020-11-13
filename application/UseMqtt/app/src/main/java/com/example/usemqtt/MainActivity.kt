@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
         garageswitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The toggle is enabled
-                mqttClient.publish("home/entrance","1")
+                mqttClient.publish("home/garage","1")
             } else {
                 // The toggle is disabled
-                mqttClient.publish("home/entrance","0")
+                mqttClient.publish("home/garage","0")
             }
         }
 

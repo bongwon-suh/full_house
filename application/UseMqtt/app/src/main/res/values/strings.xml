@@ -14,4 +14,7 @@
     <string name="down">down</string>
     <string name="up">up</string>
     <string name="notyetrecevied">NotYetRecevied</string>
+    <string name="off">off</string>
+    <string name="on">on</string>
+    <string name="opened">열린 정도</string>
 </resources>

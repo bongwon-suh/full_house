@@ -7,6 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_light.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
+import kotlin.concurrent.schedule
 import kotlin.concurrent.timer
 
 
@@ -28,7 +29,7 @@ class LightandWindowActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        illuswitch.setOnCheckedChangeListener { _, isChecked ->
+        activeswitch2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The toggle is enabled
                 mqttClient.publish("home/livingroom/manualstate","1")
@@ -42,7 +43,7 @@ class LightandWindowActivity : AppCompatActivity() {
         illuup.setOnClickListener(){
             manualillu += 1
             if (manualillu>30){
-                toastUp()
+                toastlightUp()
                 manualillu = 30
             }
             curillu.text = manualillu.toString()
@@ -50,7 +51,7 @@ class LightandWindowActivity : AppCompatActivity() {
         illudown.setOnClickListener(){
             manualillu -= 1
             if (manualillu<0){
-                toastUp()
+                toastlightUp()
                 manualillu = 0
             }
             curillu.text = manualillu.toString()
@@ -71,7 +72,7 @@ class LightandWindowActivity : AppCompatActivity() {
         windoup.setOnClickListener(){
             manualwindo += 1
             if (manualwindo>30){
-                toastUp()
+                toastwindoUp()
                 manualwindo = 30
             }
             curwindo.text = manualwindo.toString()
@@ -79,7 +80,7 @@ class LightandWindowActivity : AppCompatActivity() {
         windodown.setOnClickListener(){
             manualwindo -= 1
             if (manualwindo<0){
-                toastUp()
+                toastwindoUp()
                 manualwindo = 0
             }
             curwindo.text = manualwindo.toString()
@@ -103,14 +104,18 @@ class LightandWindowActivity : AppCompatActivity() {
         roomillu.text = msg
     }
     fun manuactive() {
-        timerTask= timer(period = 2500){
-            if (manualillu>-1&&manualillu<31) {
-                mqttClient.publish("home/livingroom/manual/illu", manualillu.toString())
-                mqttClient.publish("home/livingroom/manual/windo", manualwindo.toString())
+        timerTask=timer(period = 2500){
+            mqttClient.publish("home/livingroom/manual/illu", manualillu.toString() )
+            Timer().schedule(1000){
+                mqttClient.publish("home/livingroom/manual/windo", manualwindo.toString() )
             }
+
         }
     }
-    fun toastUp() {
+    fun toastlightUp() {
         Toast.makeText(this@LightandWindowActivity,"밝기값은 0과 30 사이여야 합니다",Toast.LENGTH_SHORT).show()
+    }
+    fun toastwindoUp() {
+        Toast.makeText(this@LightandWindowActivity,"창문의 열린 정도는 0과 30 사이여야 합니다",Toast.LENGTH_SHORT).show()
     }
 }
