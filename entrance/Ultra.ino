@@ -8,9 +8,9 @@
 
 SoftwareSerial SoftwareSerial(2, 3);
 
-const char ssid[] = "KT_WLAN_CD4A";
-const char password[] = "00000044AE";
-const char mqtt_server[] = "172.30.1.3";
+const char ssid[] = "Campus7_Room3_2.4";               // 네트워크 SSID
+const char password[] = "12345678";       // 비밀번호
+const char mqtt_server[] = "192.168.0.92";
 
 WifiUtil wifi(2, 3);
 WiFiEspClient espClient;

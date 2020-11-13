@@ -6,8 +6,8 @@ from gpiozero import LED
 import RPi.GPIO as GPIO
 from time import sleep
 
-# mongodb = MongoClient("mongodb://192.168.0.85:27017/")
-# db = mongodb.iot_service
+mongodb = MongoClient("mongodb://192.168.0.87:27017/")
+db = mongodb.full_house
 
 piezo = 6
 GPIO.setmode(GPIO.BCM)
@@ -41,7 +41,7 @@ client.on_message = on_message
 
 try :
     # 3. 브로커 연결
-    client.connect("172.30.1.3")
+    client.connect("192.168.0.93")
     
     # 4. 메시지 루프 - 이벤트 발생시 해당 콜백 함수 호출됨
     client.loop_forever()
