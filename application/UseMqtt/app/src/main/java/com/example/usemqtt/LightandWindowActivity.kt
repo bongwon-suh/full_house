@@ -2,13 +2,14 @@ package com.example.usemqtt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.SeekBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_light.*
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import java.util.*
 import kotlin.concurrent.timer
 
-class LightActivity : AppCompatActivity() {
+class LightandWindowActivity : AppCompatActivity() {
     private var timerTask: Timer? = null
     lateinit var mqttClient: Mqtt
     var manualillu = 5
@@ -19,7 +20,7 @@ class LightActivity : AppCompatActivity() {
         try {
             // mqttClient.setCallback { topic, message ->}
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>("home/livingroom/light"))
+            mqttClient.connect(arrayOf<String>("home/livingroom/illu"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -37,9 +38,9 @@ class LightActivity : AppCompatActivity() {
         }
         illuup.setOnClickListener(){
             manualillu += 1
-            if (manualillu>10){
+            if (manualillu>30){
                 toastUp()
-                manualillu = 10
+                manualillu = 30
             }
             curillu.text = manualillu.toString()
         }
@@ -51,6 +52,18 @@ class LightActivity : AppCompatActivity() {
             }
             curillu.text = manualillu.toString()
         }
+        illubar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                // Display the current progress of SeekBar
+                manualillu = i
+                curillu.text = manualillu.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
     fun onReceived(topic: String, message: MqttMessage) {
         // 토픽 수신 처리
@@ -59,12 +72,12 @@ class LightActivity : AppCompatActivity() {
     }
     fun manuillu() {
         timerTask= timer(period = 2500){
-            if (manualillu>-1&&manualillu<11) {
+            if (manualillu>-1&&manualillu<31) {
                 mqttClient.publish("home/livingroom/manual/illu", manualillu.toString())
             }
         }
     }
     fun toastUp() {
-        Toast.makeText(this@LightActivity,"밝기값은 0과 10 사이여야 합니다",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@LightandWindowActivity,"밝기값은 0과 30 사이여야 합니다",Toast.LENGTH_SHORT).show()
     }
 }

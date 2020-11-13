@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UseMqtt">
-        <activity android:name=".LightActivity"></activity>
+        <activity android:name=".LightandWindowActivity"></activity>
         <activity android:name=".AirconActivity" />
         <activity
             android:name=".MainActivity2"

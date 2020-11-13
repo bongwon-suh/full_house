@@ -18,9 +18,32 @@ class AirconActivity : AppCompatActivity() {
         try {
             // mqttClient.setCallback { topic, message ->}
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>("home/livingroom/temp"))
+            mqttClient.connect(arrayOf<String>(
+                    "home/livingroom/temp",
+                    "home/livingroom/humi"
+            ))
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+
+        humiswitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // The toggle is enabled
+                mqttClient.publish("home/livingroom/manualstate","1")
+                manutemp()
+            } else {
+                // The toggle is disabled
+                mqttClient.publish("home/livingroom/manualstate","0")
+                timerTask?.cancel()
+            }
+        }
+        humiup.setOnClickListener(){
+            manualtemp += 1
+            curhumi.text = manualtemp.toString()
+        }
+        humidown.setOnClickListener(){
+            manualtemp -= 1
+            curhumi.text = manualtemp.toString()
         }
 
         tempswitch.setOnCheckedChangeListener { _, isChecked ->
@@ -34,13 +57,13 @@ class AirconActivity : AppCompatActivity() {
                 timerTask?.cancel()
             }
         }
-        hitup.setOnClickListener(){
+        tempup.setOnClickListener(){
             manualtemp += 1
-            curtemp.text = manualtemp.toString()
+            curhumi.text = manualtemp.toString()
         }
-        hitdown.setOnClickListener(){
+        tempdown.setOnClickListener(){
             manualtemp -= 1
-            curtemp.text = manualtemp.toString()
+            curhumi.text = manualtemp.toString()
         }
 
     }
@@ -48,7 +71,12 @@ class AirconActivity : AppCompatActivity() {
     fun onReceived(topic: String, message: MqttMessage) {
         // 토픽 수신 처리
         val msg = String(message.payload)
-        roomtemp.text = msg
+        if (topic == "home/livingroom/temp") {
+            roomhumi.text = msg
+        }
+        else {
+            roomtemp.text = msg
+        }
     }
 
     fun manutemp() {
