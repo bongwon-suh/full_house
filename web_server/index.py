@@ -1,14 +1,11 @@
 from flask import Flask, request, make_response, jsonify
 from flask import render_template
 import json
-import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 from pymongo import MongoClient
 from random import sample
 from bson.json_util import loads, dumps
-from bson import json_util
 from time import time
-from gpiozero import  LED
 
 client = mqtt.Client()
 client.connect("192.168.0.92", 1883) #MQTT 서버에 연결
@@ -17,7 +14,6 @@ client.loop_start()
 mongodb = MongoClient("mongodb://192.168.0.84:27017/")
 db = mongodb.full_house
 collection = db.sensors
-led = LED(26)
 
 app = Flask(__name__)
 # GPIO.setmode(GPIO.BOARD) #BOARD는 커넥터 pin번호 사용
@@ -55,7 +51,6 @@ def index():
     return render_template("index.html", light=light, aircon=aircon, heater=heater, airdry=airdry,
                                          blind=blind, fan=fan, gas=gas, auto=auto, flame=flame)
     
-
 @app.route("/led_on")
 def led_on():
     try:
@@ -198,7 +193,7 @@ def live_data():
     for i in labels:      
         labels_dict = {'reg_date':i['reg_date'].strftime('%H:%M:%S'), 'value':i['value']}
         # labels_list = [i['reg_date'].strftime('%H:%M:%S'), i['value']]
-        labels_list = [time()*1000+3, i['value']]
+        labels_list = [time()*1000, i['value']]
     response = make_response(json.dumps(labels_list))
     print(type(response))
     response.content_type = 'application/json'
@@ -222,6 +217,49 @@ def live_data2():
 # 미세먼지 차트
 @app.route("/live-data3")
 def live_data3():
+    query = {"topic":"home/livingroom/dust"}
+    labels = collection.find(query).sort("reg_date", -1).limit(1)
+    for i in labels:      
+        labels_dict = {'reg_date':i['reg_date'].strftime('%H:%M:%S'), 'value':i['value']}
+        # labels_list = [i['reg_date'].strftime('%H:%M:%S'), i['value']]
+        labels_list = [time()*1000+3, i['value']]
+    response = make_response(json.dumps(labels_list))
+    print(type(response))
+    response.content_type = 'application/json'
+    return response
+
+# 미세먼지 차트
+@app.route("/live-data4")
+def live_data4():
+    query = {"topic":"home/livingroom/dust"}
+    labels = collection.find(query).sort("reg_date", -1).limit(1)
+    for i in labels:      
+        labels_dict = {'reg_date':i['reg_date'].strftime('%H:%M:%S'), 'value':i['value']}
+        # labels_list = [i['reg_date'].strftime('%H:%M:%S'), i['value']]
+        labels_list = [time()*1000+3, i['value']]
+    response = make_response(json.dumps(labels_list))
+    print(type(response))
+    response.content_type = 'application/json'
+    return response
+
+# 미세먼지 차트
+@app.route("/live-data5")
+def live_data5():
+    query = {"topic":"home/livingroom/dust"}
+    labels = collection.find(query).sort("reg_date", -1).limit(1)
+    for i in labels:      
+        labels_dict = {'reg_date':i['reg_date'].strftime('%H:%M:%S'), 'value':i['value']}
+        # labels_list = [i['reg_date'].strftime('%H:%M:%S'), i['value']]
+        labels_list = [time()*1000+3, i['value']]
+    response = make_response(json.dumps(labels_list))
+    print(type(response))
+    response.content_type = 'application/json'
+    return response
+
+
+# 미세먼지 차트
+@app.route("/live-data6")
+def live_data6():
     query = {"topic":"home/livingroom/dust"}
     labels = collection.find(query).sort("reg_date", -1).limit(1)
     for i in labels:      
