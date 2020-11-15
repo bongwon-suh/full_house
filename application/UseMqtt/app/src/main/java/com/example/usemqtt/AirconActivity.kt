@@ -2,6 +2,7 @@ package com.example.usemqtt
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_aircon.*
@@ -83,7 +84,7 @@ class AirconActivity : AppCompatActivity() {
     fun onReceived(topic: String, message: MqttMessage) {
         // 토픽 수신 처리
         val msg = String(message.payload)
-        if (topic == "home/livingroom/temp") {
+        if (topic == "home/livingroom/humi") {
             roomhumi.text = msg
         }
         else {
@@ -92,12 +93,46 @@ class AirconActivity : AppCompatActivity() {
     }
 
     fun manuaircon() {
-        timerTask=timer(period = 2500){
-            mqttClient.publish("home/livingroom/manual/humi", manualhumi.toString() )
-            Timer().schedule(1000){
-                    mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString() )
+        timerTask = timer(period = 2500) {
+            if (roomtemp.text != "NotYetRecevied") {
+                if (roomtemp.text.toString().toInt() > manualtemp+1) {
+                    mqttClient.publish("home/livingroom_state/heater", "0")
+                    Timer().schedule(100) {
+                        mqttClient.publish("home/livingroom_state/aircon", "1")
+                    }
+                } else if (roomtemp.text.toString().toInt() < manualtemp-1){
+                    mqttClient.publish("home/livingroom_state/heater", "1")
+                    Timer().schedule(100) {
+                        mqttClient.publish("home/livingroom_state/aircon", "0")
+                    }
+                } else {
+                    mqttClient.publish("home/livingroom_state/heater", "0")
+                    Timer().schedule(100) {
+                        mqttClient.publish("home/livingroom_state/aircon", "0")
+                    }
+                }
             }
 
+            if (roomhumi.text != "NotYetRecevied"){
+                if (roomhumi.text.toString().toInt() > manualhumi+5){
+                    mqttClient.publish("home/livingroom_state/airdry", "1")
+                } else {
+                    mqttClient.publish("home/livingroom_state/airdry", "0")
+                }
+            }
+
+            Timer().schedule(200) {
+                mqttClient.publish("home/livingroom/manual/humi", manualhumi.toString())
+            }
+            Timer().schedule(300) {
+                mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString())
+            }
         }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timerTask?.cancel()
     }
 }

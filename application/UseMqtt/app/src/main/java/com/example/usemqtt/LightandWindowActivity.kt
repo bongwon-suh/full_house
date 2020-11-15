@@ -105,9 +105,9 @@ class LightandWindowActivity : AppCompatActivity() {
     }
     fun manuactive() {
         timerTask=timer(period = 2500){
-            mqttClient.publish("home/livingroom/manual/illu", manualillu.toString() )
+            mqttClient.publish("home/livingroom/manual/illu", (manualillu.toFloat()/30).toString() )
             Timer().schedule(1000){
-                mqttClient.publish("home/livingroom/manual/windo", manualwindo.toString() )
+                mqttClient.publish("home/livingroom/manual/windo", ((manualwindo.toFloat()/15)-1).toString() )
             }
 
         }
@@ -117,5 +117,10 @@ class LightandWindowActivity : AppCompatActivity() {
     }
     fun toastwindoUp() {
         Toast.makeText(this@LightandWindowActivity,"창문의 열린 정도는 0과 30 사이여야 합니다",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timerTask?.cancel()
     }
 }

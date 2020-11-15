@@ -32,11 +32,17 @@ class MainActivity : AppCompatActivity() {
                 Timer().schedule(100){
                     mqttClient.publish("home/entrance","1" )
                 }
+                Timer().schedule(2000){
+                    mqttClient.publish("home/manualstate","0" )
+                }
             } else {
                 // The toggle is disabled
                 mqttClient.publish("home/manualstate","1")
                 Timer().schedule(100){
                     mqttClient.publish("home/entrance","0" )
+                }
+                Timer().schedule(2000){
+                    mqttClient.publish("home/manualstate","0" )
                 }
             }
         }
@@ -48,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 Timer().schedule(100){
                     mqttClient.publish("home/entrance","1" )
                 }
-                Timer().schedule(200){
+                Timer().schedule(2000){
                     mqttClient.publish("home/manualstate","0" )
                 }
             } else {
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 Timer().schedule(100){
                     mqttClient.publish("home/entrance","0" )
                 }
-                Timer().schedule(200){
+                Timer().schedule(2000){
                     mqttClient.publish("home/manualstate","0" )
                 }
             }
