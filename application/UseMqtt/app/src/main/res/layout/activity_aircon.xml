@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LightandWindowActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="수동 제어" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="off" />
+
+            <Switch
+                android:id="@+id/airconswitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="on" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="실내 온도" />
+
+        <TextView
+            android:id="@+id/roomtemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/notyetrecevied"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/tempup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/up"
+            tools:ignore="UnknownIdInLayout" />
+
+        <TextView
+            android:id="@+id/curtemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="wantedTemp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/tempdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/down"
+            tools:ignore="UnknownIdInLayout" />
+
+        <SeekBar
+            android:id="@+id/tempbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="실내 습도" />
+
+        <TextView
+            android:id="@+id/roomhumi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/notyetrecevied"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/humiup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/up"
+            tools:ignore="UnknownIdInLayout" />
+
+        <TextView
+            android:id="@+id/curhumi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="wantedHumidity"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/humidown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/down"
+            tools:ignore="UnknownIdInLayout" />
+
+        <SeekBar
+            android:id="@+id/humibar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="40" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
