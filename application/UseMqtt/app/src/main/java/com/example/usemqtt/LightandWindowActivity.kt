@@ -22,21 +22,21 @@ class LightandWindowActivity : AppCompatActivity() {
         setContentView(R.layout.activity_light)
         mqttClient = Mqtt(this, SERVER_URI)
         try {
-            // mqttClient.setCallback { topic, message ->}
+// mqttClient.setCallback { topic, message ->}
             mqttClient.setCallback(::onReceived)
-            mqttClient.connect(arrayOf<String>("home/livingroom/illu"))
+            mqttClient.connect(arrayOf<String>("home/livingroom_state/livingroom_led"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
         activeswitch2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                // The toggle is enabled
-                mqttClient.publish("home/livingroom/manualstate","1")
+// The toggle is enabled
+                mqttClient.publish("home/auto","0")
                 manuactive()
             } else {
-                // The toggle is disabled
-                mqttClient.publish("home/livingroom/manualstate","0")
+// The toggle is disabled
+                mqttClient.publish("home/auto","1")
                 timerTask?.cancel()
             }
         }
@@ -58,7 +58,7 @@ class LightandWindowActivity : AppCompatActivity() {
         }
         illubar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
+// Display the current progress of SeekBar
                 manualillu = i
                 curillu.text = manualillu.toString()
             }
@@ -87,7 +87,7 @@ class LightandWindowActivity : AppCompatActivity() {
         }
         windobar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
+// Display the current progress of SeekBar
                 manualwindo = i
                 curwindo.text = manualwindo.toString()
             }
@@ -99,15 +99,15 @@ class LightandWindowActivity : AppCompatActivity() {
         })
     }
     fun onReceived(topic: String, message: MqttMessage) {
-        // 토픽 수신 처리
+// 토픽 수신 처리
         val msg = String(message.payload)
         roomillu.text = msg
     }
     fun manuactive() {
         timerTask=timer(period = 2500){
-            mqttClient.publish("home/livingroom/manual/illu", (manualillu.toFloat()/30).toString() )
+            mqttClient.publish("home/livingroom_state/livingroom_led", (manualillu.toFloat()/30).toString() )
             Timer().schedule(1000){
-                mqttClient.publish("home/livingroom/manual/windo", ((manualwindo.toFloat()/15)-1).toString() )
+                mqttClient.publish("home/livingroom_state/blind", ((manualwindo.toFloat()/15)-1).toString() )
             }
 
         }

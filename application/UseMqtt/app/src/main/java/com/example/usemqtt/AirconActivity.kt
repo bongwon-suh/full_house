@@ -23,7 +23,7 @@ class AirconActivity : AppCompatActivity() {
         setContentView(R.layout.activity_aircon)
         mqttClient = Mqtt(this, SERVER_URI)
         try {
-            // mqttClient.setCallback { topic, message ->}
+// mqttClient.setCallback { topic, message ->}
             mqttClient.setCallback(::onReceived)
             mqttClient.connect(arrayOf<String>(
                     "home/livingroom/temp",
@@ -34,11 +34,11 @@ class AirconActivity : AppCompatActivity() {
         }
         airconswitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                // The toggle is enabled
-                mqttClient.publish("home/livingroom/manualstate","1")
+// The toggle is enabled
+                mqttClient.publish("home/auto","1")
                 manuaircon()
             } else {
-                // The toggle is disabled
+// The toggle is disabled
                 mqttClient.publish("home/livingroom/manualstate","0")
                 timerTask?.cancel()
             }
@@ -53,7 +53,7 @@ class AirconActivity : AppCompatActivity() {
         }
         humibar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
+// Display the current progress of SeekBar
                 manualhumi = i+30
                 curhumi.text = manualhumi.toString()
             }
@@ -71,7 +71,7 @@ class AirconActivity : AppCompatActivity() {
 
         tempbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
+// Display the current progress of SeekBar
                 manualtemp = i+16
                 curtemp.text = manualtemp.toString()
             }
@@ -82,7 +82,7 @@ class AirconActivity : AppCompatActivity() {
     }
 
     fun onReceived(topic: String, message: MqttMessage) {
-        // 토픽 수신 처리
+// 토픽 수신 처리
         val msg = String(message.payload)
         if (topic == "home/livingroom/humi") {
             roomhumi.text = msg
@@ -95,12 +95,12 @@ class AirconActivity : AppCompatActivity() {
     fun manuaircon() {
         timerTask = timer(period = 2500) {
             if (roomtemp.text != "NotYetRecevied") {
-                if (roomtemp.text.toString().toInt() > manualtemp+1) {
+                if (roomtemp.text.toString().toFloat() > manualtemp+1) {
                     mqttClient.publish("home/livingroom_state/heater", "0")
                     Timer().schedule(100) {
                         mqttClient.publish("home/livingroom_state/aircon", "1")
                     }
-                } else if (roomtemp.text.toString().toInt() < manualtemp-1){
+                } else if (roomtemp.text.toString().toFloat() < manualtemp-1){
                     mqttClient.publish("home/livingroom_state/heater", "1")
                     Timer().schedule(100) {
                         mqttClient.publish("home/livingroom_state/aircon", "0")
@@ -114,18 +114,11 @@ class AirconActivity : AppCompatActivity() {
             }
 
             if (roomhumi.text != "NotYetRecevied"){
-                if (roomhumi.text.toString().toInt() > manualhumi+5){
+                if (roomhumi.text.toString().toFloat() > manualhumi+5){
                     mqttClient.publish("home/livingroom_state/airdry", "1")
                 } else {
                     mqttClient.publish("home/livingroom_state/airdry", "0")
                 }
-            }
-
-            Timer().schedule(200) {
-                mqttClient.publish("home/livingroom/manual/humi", manualhumi.toString())
-            }
-            Timer().schedule(300) {
-                mqttClient.publish("home/livingroom/manual/temp", manualtemp.toString())
             }
         }
     }
